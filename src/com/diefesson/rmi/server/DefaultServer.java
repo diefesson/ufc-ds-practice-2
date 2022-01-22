@@ -28,6 +28,7 @@ public class DefaultServer extends UnicastRemoteObject implements Server {
     @Override
     public void addClient(Client client) throws RemoteException {
         clients.add(client);
+        receiveMessage(new Message("server", client.username() + " entrou no chat"));
         System.out.println("client count: " + clients.size());
     }
 }

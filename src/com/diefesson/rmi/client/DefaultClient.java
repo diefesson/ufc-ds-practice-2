@@ -33,6 +33,11 @@ public class DefaultClient extends UnicastRemoteObject implements Client {
     }
 
     @Override
+    public String username() {
+        return username;
+    }
+
+    @Override
     public void receiveMessage(Message message) throws RemoteException {
         onMessage.call(message);
     }
