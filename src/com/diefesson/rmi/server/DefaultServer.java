@@ -16,13 +16,15 @@ public class DefaultServer extends UnicastRemoteObject implements Server {
 
     @Override
     public void receiveMessage(Message message) throws RemoteException {
+        var deadClients = new HashSet<>();
         for (var client : clients) {
             try {
                 client.receiveMessage(message);
             } catch (RemoteException e) {
-                clients.remove(client);
+                deadClients.add(client);
             }
         }
+        clients.removeAll(deadClients);
     }
 
     @Override
